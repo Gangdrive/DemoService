@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/goMainActivity"
+        android:title="Главная"></item>
+
+    <item
+        android:id="@+id/menuReference"
+        android:title="Рекомендации"></item>
+
+    <item
+        android:id="@+id/menuAutoАccessories"
+        android:title="Автомобильные аксессуары"></item>
+
+    <item
+        android:id="@+id/menuWashing"
+        android:title="Мойка"></item>
+</menu>
