@@ -7,18 +7,18 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
-import gangdrive.gang.demoservice.db.AppDatabaseTo;
+import gangdrive.gang.demoservice.db.AppDatabase;
 import gangdrive.gang.demoservice.db.Tototo;
 
 public class ToActivityViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Tototo>> listOfTo;
-    AppDatabaseTo appDatabaseto;
+    AppDatabase appDatabase;
 
     public ToActivityViewModel(Application application) {
         super(application);
         listOfTo = new MutableLiveData<>();
-        appDatabaseto = AppDatabaseTo.getDbInstance(getApplication().getApplicationContext());
+        appDatabase = AppDatabase.getDbInstance(getApplication().getApplicationContext());
     }
 
     public MutableLiveData<List<Tototo>> getToObserverList() {
@@ -26,7 +26,7 @@ public class ToActivityViewModel extends AndroidViewModel {
     }
 
     public void getAllToList() {
-        List<Tototo> toList = appDatabaseto.toDao().getAllToList();
+        List<Tototo> toList = appDatabase.toDao().getAllToList();
         if (toList.size() > 0) {
             listOfTo.postValue(toList);
         } else {
@@ -37,17 +37,17 @@ public class ToActivityViewModel extends AndroidViewModel {
     public void insertTo(String qwertyName) {
         Tototo to = new Tototo();
         to.toName = qwertyName;
-        appDatabaseto.toDao().insertTo(to);
+        appDatabase.toDao().insertTo(to);
         getAllToList();
     }
 
     public void updateTo(Tototo to) {
-        appDatabaseto.toDao().updateTo(to);
+        appDatabase.toDao().updateTo(to);
         getAllToList();
     }
 
     public void deleteTo(Tototo to) {
-        appDatabaseto.toDao().deleteTo(to);
+        appDatabase.toDao().deleteTo(to);
         getAllToList();
     }
 }

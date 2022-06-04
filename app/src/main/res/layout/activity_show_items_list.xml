@@ -19,7 +19,7 @@
         android:id="@+id/addNewItemInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Введите пробег автомобиля"
+        android:hint="Введите пробег автомобиля (км)"
         android:textColor="@color/black"
         android:paddingEnd="35dp"
         android:inputType="number"
@@ -47,7 +47,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="Вы не создали значение "
+        android:text="@string/toStrings"
+        android:gravity="center"
         android:textSize="22sp"
         android:textStyle="bold"
         />
