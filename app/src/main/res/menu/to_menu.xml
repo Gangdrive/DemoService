@@ -6,7 +6,7 @@
         android:title="Главная"></item>
 
     <item
-        android:id="@+id/menuReference"
+        android:id="@+id/menuRecommendations"
         android:title="Рекомендации"></item>
 
     <item

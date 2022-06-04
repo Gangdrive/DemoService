@@ -21,58 +21,62 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import gangdrive.gang.demoservice.db.Accessories;
 import gangdrive.gang.demoservice.db.CarData;
+import gangdrive.gang.demoservice.viewmodel.AccessoriesActivityViewModel;
 import gangdrive.gang.demoservice.viewmodel.MainActivityViewModel;
 
-public class MainActivity extends AppCompatActivity implements CarDataListAdapter.HandleCarDataClick {
 
-    private MainActivityViewModel viewModel;
+public class AccessoriesActivity extends AppCompatActivity implements AccessoriesListAdapter.HandleAccessoriesClick {
+
+    private AccessoriesActivityViewModel viewModel;
     private TextView noResultTextView;
     private RecyclerView recyclerView;
-    private CarDataListAdapter carDataListAdapter;
-    private CarData carDataForEdit;
+    private AccessoriesListAdapter accessoriesListAdapter;
+    private Accessories accessoriesForEdit;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_accessories);
 
-        getSupportActionBar().setTitle("Замена расходников");
+        getSupportActionBar().setTitle("Автомобильные аксессуары");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         noResultTextView = findViewById(R.id.noResult);
         recyclerView = findViewById(R.id.recyclerView);
 
-        ImageView addNew = findViewById(R.id.addNewCarDataImageView);
+        ImageView addNew = findViewById(R.id.addNewAccessoriesImageView);
         addNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCarDataDialog(false);
+                showAccessoriesDialog(false);
             }
         });
 
         initViewModel();
         initRecyclerView();
-        viewModel.getAllCarDataList();
+        viewModel.getAllAccessoriesList();
     }
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        carDataListAdapter = new CarDataListAdapter(this, this);
-        recyclerView.setAdapter(carDataListAdapter);
+        accessoriesListAdapter = new AccessoriesListAdapter(this, this);
+        recyclerView.setAdapter(accessoriesListAdapter);
     }
 
     private void initViewModel() {
-        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        viewModel.getCarDataObserverList().observe(this, new Observer<List<CarData>>() {
+        viewModel = new ViewModelProvider(this).get(AccessoriesActivityViewModel.class);
+        viewModel.getAccessoriesObserverList().observe(this, new Observer<List<Accessories>>() {
             @Override
-            public void onChanged(List<CarData> carData) {
-                if (carData == null) {
+            public void onChanged(List<Accessories> accessories) {
+                if (accessories == null) {
                     noResultTextView.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
                 } else {
                     //показать RecyclerView
-                    carDataListAdapter.setCarData(carData);
+                    accessoriesListAdapter.setAccessories(accessories);
                     recyclerView.setVisibility(View.VISIBLE);
                     noResultTextView.setVisibility(View.GONE);
                 }
@@ -80,15 +84,16 @@ public class MainActivity extends AppCompatActivity implements CarDataListAdapte
         });
     }
 
-    private void showCarDataDialog(boolean isForEdit) {
+    private void showAccessoriesDialog(boolean isForEdit) {
         AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
-        View dialogView = getLayoutInflater().inflate(R.layout.add_cardata_layout, null);
-        EditText enterCarDataInput = dialogView.findViewById(R.id.enterCarDataInput);
+        View dialogView = getLayoutInflater().inflate(R.layout.add_accessories_layout, null);
+        EditText enterAccessoriesInput = dialogView.findViewById(R.id.enterAccessoriesInput);
         TextView createButton = dialogView.findViewById(R.id.createButton);
         TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
+
         if (isForEdit) {
             createButton.setText("Update");
-            enterCarDataInput.setText(carDataForEdit.carDataName);
+            enterAccessoriesInput.setText(accessoriesForEdit.accessoriesName);
         }
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -101,17 +106,17 @@ public class MainActivity extends AppCompatActivity implements CarDataListAdapte
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = enterCarDataInput.getText().toString();
+                String name = enterAccessoriesInput.getText().toString();
                 if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(MainActivity.this, "Выберите название заголовка", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AccessoriesActivity.this, "Выберите название заголовка", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (isForEdit) {
-                    carDataForEdit.carDataName = name;
-                    viewModel.updateCarData(carDataForEdit);
+                    accessoriesForEdit.accessoriesName = name;
+                    viewModel.updateAccessories(accessoriesForEdit);
                 } else {
                     //здесь нам нужно вызвать view model
-                    viewModel.insertCarData(name);
+                    viewModel.insertAccessories(name);
                 }
                 dialogBuilder.dismiss();
             }
@@ -119,30 +124,30 @@ public class MainActivity extends AppCompatActivity implements CarDataListAdapte
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
     }
-
-    @Override
+   /* @Override
     public void itemClick(CarData carData) {
-        Intent intent = new Intent(MainActivity.this, ShowItemsListActivity.class);
+        Intent intent = new Intent(AccessoriesActivity.this, ShowItemsListActivity.class);
         intent.putExtra("carData_id", carData.uid);
         intent.putExtra("carData_name", carData.carDataName);
 
         startActivity(intent);
+    }*/
+
+    @Override
+    public void removeItem(Accessories accessories) {
+        viewModel.deleteCarData(accessories);
     }
 
     @Override
-    public void removeItem(CarData carData) {
-        viewModel.deleteCarData(carData);
+    public void editItem(Accessories accessories) {
+        this.accessoriesForEdit = accessories;
+        showAccessoriesDialog(true);
     }
 
-    @Override
-    public void editItem(CarData carData) {
-        this.carDataForEdit = carData;
-        showCarDataDialog(true);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
+        getMenuInflater().inflate(R.menu.accessories_menu, menu);
         return true;
     }
 
@@ -150,20 +155,27 @@ public class MainActivity extends AppCompatActivity implements CarDataListAdapte
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.menuReferece3:
+                intent = new Intent(this, Reference3Activity.class);
+                startActivity(intent);
+                break;
+            case R.id.goMainActivity:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
             case R.id.menuRecommendations:
                 intent = new Intent(this, MenuRecommendationsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.menuTo:
-                intent = new Intent(this,ToActivity.class);
+                intent = new Intent(this, ToActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.menuAutoАccessories:
-                intent = new Intent(this,AccessoriesActivity.class);
-                startActivity(intent);
-                break;
-                /*case R.id.menuWashing:
+          /*  case R.id.menuWashing:
                 intent = new Intent(this,WashingActivity.class);
                 startActivity(intent);
                 break;*/
@@ -171,6 +183,5 @@ public class MainActivity extends AppCompatActivity implements CarDataListAdapte
         }
         return true;
     }
-
 
 }

@@ -7,8 +7,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -50,9 +53,9 @@ public class ShowItemsListActivity extends AppCompatActivity implements ItemsLis
                     return;
                 }
                 if (itemToUpdate == null)
-                    saveNewItem(itemName);
+                    saveNewItem(itemName+"км");
                 else
-                    updateNewItem(itemName);
+                    updateNewItem(itemName+"км");
             }
         });
         initRecyclerView();
@@ -122,10 +125,22 @@ public class ShowItemsListActivity extends AppCompatActivity implements ItemsLis
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.reference1_menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                break;
+            case R.id.menuReference1:
+                Intent intent = new Intent(this, Reference1Activity.class);
+                startActivity(intent);
+                break;
+
         }
 
         return super.onOptionsItemSelected(item);

@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class ItemsTo {
     @PrimaryKey(autoGenerate = true)
-    public int tid1;
+    public int tid;
 
     @ColumnInfo(name = "itemNameTo")
     public String itemNameTo;

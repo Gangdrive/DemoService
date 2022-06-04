@@ -36,7 +36,11 @@ public class ToActivity extends AppCompatActivity implements ToListAdapter.Handl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to);
+
         getSupportActionBar().setTitle("Пройденные ТО");
+        //кнопка назад
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         noResultTextView = findViewById(R.id.noResult);
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -148,14 +152,30 @@ public class ToActivity extends AppCompatActivity implements ToListAdapter.Handl
         Intent intent;
         int id = item.getItemId();
         switch (id) {
+            //кнопка назад
+            case android.R.id.home:
+                finish();
+                break;
+
             case R.id.goMainActivity:
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.menuReference:
-                intent = new Intent(this, MenuReferenceActivity.class);
+
+            case R.id.menuRecommendations:
+                intent = new Intent(this, MenuRecommendationsActivity.class);
                 startActivity(intent);
                 break;
+
+            case R.id.menuAutoАccessories:
+                intent = new Intent(this, AccessoriesActivity.class);
+                startActivity(intent);
+                break;
+
+              /*  case R.id.menuWashing:
+                intent = new Intent(this,WashingActivity.class);
+                startActivity(intent);
+                break;*/
 
         }
         return true;

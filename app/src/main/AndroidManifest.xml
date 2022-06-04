@@ -12,11 +12,26 @@
         android:theme="@style/Theme.DemoService"
         tools:targetApi="31">
         <activity
-            android:name=".ToActivity"
-            android:exported="false" />
+            android:name=".AccessoriesActivity"
+            android:exported="true" />
         <activity
-            android:name=".MenuReferenceActivity"
-            android:exported="false" />
+            android:name=".Reference1Activity"
+            android:exported="true" />
+        <activity
+            android:name=".Reference2Activity"
+            android:exported="true" />
+        <activity
+            android:name=".Reference3Activity"
+            android:exported="true" />
+        <activity
+            android:name=".ToActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MenuRecommendationsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ShowItemsToListActivity"
+            android:exported="true" />
         <activity
             android:name=".ShowItemsListActivity"
             android:exported="true" />

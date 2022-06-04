@@ -1,7 +1,9 @@
 package gangdrive.gang.demoservice;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -31,7 +33,7 @@ public class ShowItemsToListActivity extends AppCompatActivity implements ItemsT
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_items_list);
+        setContentView(R.layout.activity_show_items_to_list);
 
         to_id = getIntent().getIntExtra("to_id", 0);
         String toName = getIntent().getStringExtra("to_name");
@@ -120,12 +122,21 @@ public class ShowItemsToListActivity extends AppCompatActivity implements ItemsT
         ((EditText) findViewById(R.id.addNewItemInput)).setText("");
         itemToUpdate = null;
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.reference2_menu, menu);
+        return true;
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                break;
+            case R.id.menuReference2:
+                Intent intent = new Intent(this, Reference2Activity.class);
+                startActivity(intent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
