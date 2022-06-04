@@ -13,7 +13,6 @@
     <item
         android:id="@+id/menuTo"
         android:title="Пройденные ТО"></item>
-
     <item
         android:id="@+id/menuWashing"
         android:title="Мойка"></item>

@@ -10,7 +10,7 @@
         android:id="@+id/mainReferenceTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ToHelper"
+        android:text="@string/mainReference"
         android:textStyle="italic"
         android:textColor="@color/black"
         android:textSize="20sp">

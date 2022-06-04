@@ -51,6 +51,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/removeCarData"
                 android:layout_margin="10dp"
+                android:paddingBottom="05dp"
                 android:src="@drawable/ic_baseline_edit_24"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

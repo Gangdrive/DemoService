@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements CarDataListAdapte
             public void onClick(View v) {
                 String name = enterCarDataInput.getText().toString();
                 if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(MainActivity.this, "Выберите название заголовка", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Введите название заголовка", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (isForEdit) {
