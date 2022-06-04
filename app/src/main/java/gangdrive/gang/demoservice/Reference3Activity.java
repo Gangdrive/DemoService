@@ -24,8 +24,8 @@ public class Reference3Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
         int id = item.getItemId();
-        switch (id){
-                //кнопка назад
+        switch (id) {
+            //кнопка назад
             case android.R.id.home:
                 finish();
                 break;

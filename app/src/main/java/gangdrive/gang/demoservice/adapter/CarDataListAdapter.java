@@ -1,9 +1,8 @@
-package gangdrive.gang.demoservice;
+package gangdrive.gang.demoservice.adapter;
 
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,93 +14,87 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import gangdrive.gang.demoservice.R;
 import gangdrive.gang.demoservice.db.CarData;
-import gangdrive.gang.demoservice.db.Items;
 
-public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.MyViewHolder> {
+public class CarDataListAdapter extends RecyclerView.Adapter<CarDataListAdapter.MyViewHolder> {
     private Context context;
-    private List<Items> itemsList;
-    private HandleItemsClick clickListener;
+    private List<CarData> carDataList;
+    private HandleCarDataClick clickListener;
 
-    public ItemsListAdapter(Context context, HandleItemsClick clickListener) {
+    public CarDataListAdapter(Context context, HandleCarDataClick clickListener) {
         this.context = context;
         this.clickListener = clickListener;
     }
 
-    public void setCarData(List<Items> itemsList) {
-        this.itemsList = itemsList;
+    public void setCarData(List<CarData> carDataList) {
+        this.carDataList = carDataList;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public ItemsListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CarDataListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.recyclerview_row, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemsListAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull CarDataListAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        holder.tvItemsName.setText(this.itemsList.get(position).itemName);
+        holder.tvCarDataName.setText(this.carDataList.get(position).carDataName);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.itemClick(itemsList.get(position));
+                clickListener.itemClick(carDataList.get(position));
             }
         });
 
         holder.editCarData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.editItem(itemsList.get(position));
+                clickListener.editItem(carDataList.get(position));
             }
         });
 
         holder.removeCarData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.removeItem(itemsList.get(position));
+                clickListener.removeItem(carDataList.get(position));
             }
         });
-
-        if (this.itemsList.get(position).completed) {
-            holder.tvItemsName.setPaintFlags(holder.tvItemsName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        } else {
-            holder.tvItemsName.setPaintFlags(0);
-        }
     }
 
     @Override
     public int getItemCount() {
-        if (itemsList == null || itemsList.size() == 0)
+        if (carDataList == null || carDataList.size() == 0) {
             return 0;
-         else
-            return itemsList.size();
-
+        } else {
+            return carDataList.size();
+        }
 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvItemsName;
+        TextView tvCarDataName;
         ImageView removeCarData;
         ImageView editCarData;
 
         public MyViewHolder(View view) {
             super(view);
-            tvItemsName = view.findViewById(R.id.tvCarDataName);
+            tvCarDataName = view.findViewById(R.id.tvCarDataName);
             removeCarData = view.findViewById(R.id.removeCarData);
             editCarData = view.findViewById(R.id.editCarData);
         }
     }
 
-    public interface HandleItemsClick {
-        void itemClick(Items item);
+    public interface HandleCarDataClick {
+        void itemClick(CarData carData);
 
-        void removeItem(Items item);
+        void removeItem(CarData carData);
 
-        void editItem(Items item);
+        void editItem(CarData carData);
     }
 
 }

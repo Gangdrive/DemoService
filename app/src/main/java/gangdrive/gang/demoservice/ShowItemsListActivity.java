@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +19,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import gangdrive.gang.demoservice.adapter.ItemsListAdapter;
 import gangdrive.gang.demoservice.db.Items;
 import gangdrive.gang.demoservice.viewmodel.ShowItemListActivityViewModel;
 
@@ -53,9 +53,9 @@ public class ShowItemsListActivity extends AppCompatActivity implements ItemsLis
                     return;
                 }
                 if (itemToUpdate == null)
-                    saveNewItem(itemName+"км");
+                    saveNewItem(itemName + "км");
                 else
-                    updateNewItem(itemName+"км");
+                    updateNewItem(itemName + "км");
             }
         });
         initRecyclerView();

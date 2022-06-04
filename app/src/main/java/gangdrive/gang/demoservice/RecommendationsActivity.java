@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MenuRecommendationsActivity extends AppCompatActivity {
+public class RecommendationsActivity extends AppCompatActivity {
 
     private int carData_id;
 

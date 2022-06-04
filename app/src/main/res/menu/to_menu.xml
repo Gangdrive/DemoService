@@ -2,18 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menuToReference"
+        android:title="Справка"></item>
+    <item
         android:id="@+id/goMainActivity"
         android:title="Главная"></item>
-
     <item
         android:id="@+id/menuRecommendations"
         android:title="Рекомендации"></item>
-
     <item
         android:id="@+id/menuAutoАccessories"
         android:title="Автомобильные аксессуары"></item>
-
     <item
         android:id="@+id/menuWashing"
         android:title="Мойка"></item>
+
 </menu>

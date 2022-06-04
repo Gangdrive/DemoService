@@ -23,6 +23,7 @@ import android.widget.Toast;
 import java.util.List;
 
 
+import gangdrive.gang.demoservice.adapter.WashingListAdapter;
 import gangdrive.gang.demoservice.db.Washing;
 import gangdrive.gang.demoservice.viewmodel.WashingActivityViewModel;
 
@@ -91,7 +92,7 @@ public class WashingActivity extends AppCompatActivity implements WashingListAda
         TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
 
         if (isForEdit) {
-            createButton.setText("Обновить");
+            createButton.setText("Изменить");
             enterWashingInput.setText(washingForEdit.washingPrice);
         }
 
@@ -136,7 +137,7 @@ public class WashingActivity extends AppCompatActivity implements WashingListAda
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.accessories_menu, menu);
+        getMenuInflater().inflate(R.menu.washing_menu, menu);
         return true;
     }
 
@@ -153,7 +154,7 @@ public class WashingActivity extends AppCompatActivity implements WashingListAda
                 startActivity(intent);
                 break;
             case R.id.menuRecommendations:
-                intent = new Intent(this, MenuRecommendationsActivity.class);
+                intent = new Intent(this, RecommendationsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.menuTo:

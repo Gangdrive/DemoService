@@ -2,9 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/mainReference"
+        android:title="Справка"></item>
+    <item
         android:id="@+id/menuRecommendations"
         android:title="Рекомендации"></item>
-
     <item
         android:id="@+id/menuTo"
         android:title="Пройденные ТО"></item>

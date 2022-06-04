@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import gangdrive.gang.demoservice.adapter.ToListAdapter;
 import gangdrive.gang.demoservice.db.Tototo;
 import gangdrive.gang.demoservice.viewmodel.ToActivityViewModel;
 
@@ -88,7 +89,7 @@ public class ToActivity extends AppCompatActivity implements ToListAdapter.Handl
         TextView createButton = dialogView.findViewById(R.id.createButton);
         TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
         if (isForEdit) {
-            createButton.setText("Обновить");
+            createButton.setText("Изменить");
             enterToInput.setText(toForEdit.toName);
         }
 
@@ -156,14 +157,17 @@ public class ToActivity extends AppCompatActivity implements ToListAdapter.Handl
             case android.R.id.home:
                 finish();
                 break;
-
+            case R.id.menuToReference:
+                intent = new Intent(this, MenuToActivity.class);
+                startActivity(intent);
+                break;
             case R.id.goMainActivity:
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
 
             case R.id.menuRecommendations:
-                intent = new Intent(this, MenuRecommendationsActivity.class);
+                intent = new Intent(this, RecommendationsActivity.class);
                 startActivity(intent);
                 break;
 

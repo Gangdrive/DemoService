@@ -18,16 +18,13 @@ public class Reference1Activity extends AppCompatActivity {
         getSupportActionBar().setTitle("Справка");
         //кнопка назад
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        switch (id){
-                //кнопка назад
+        switch (id) {
+            //кнопка назад
             case android.R.id.home:
                 finish();
                 break;

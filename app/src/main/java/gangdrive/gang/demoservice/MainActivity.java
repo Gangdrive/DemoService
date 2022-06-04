@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import gangdrive.gang.demoservice.adapter.CarDataListAdapter;
 import gangdrive.gang.demoservice.db.CarData;
 import gangdrive.gang.demoservice.viewmodel.MainActivityViewModel;
 
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements CarDataListAdapte
         TextView createButton = dialogView.findViewById(R.id.createButton);
         TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
         if (isForEdit) {
-            createButton.setText("Обновить");
+            createButton.setText("Изменить");
             enterCarDataInput.setText(carDataForEdit.carDataName);
         }
 
@@ -151,8 +152,12 @@ public class MainActivity extends AppCompatActivity implements CarDataListAdapte
         Intent intent;
         int id = item.getItemId();
         switch (id) {
+            case R.id.mainReference:
+                intent = new Intent(this, MainReferenceActivity.class);
+                startActivity(intent);
+                break;
             case R.id.menuRecommendations:
-                intent = new Intent(this, MenuRecommendationsActivity.class);
+                intent = new Intent(this, RecommendationsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.menuTo:

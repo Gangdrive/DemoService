@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import gangdrive.gang.demoservice.adapter.AccessoriesListAdapter;
 import gangdrive.gang.demoservice.db.Accessories;
 import gangdrive.gang.demoservice.viewmodel.AccessoriesActivityViewModel;
 
@@ -91,7 +92,7 @@ public class AccessoriesActivity extends AppCompatActivity implements Accessorie
         TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
 
         if (isForEdit) {
-            createButton.setText("Обновить");
+            createButton.setText("Изменить");
             enterAccessoriesInput.setText(accessoriesForEdit.accessoriesName);
         }
 
@@ -159,7 +160,7 @@ public class AccessoriesActivity extends AppCompatActivity implements Accessorie
                 startActivity(intent);
                 break;
             case R.id.menuRecommendations:
-                intent = new Intent(this, MenuRecommendationsActivity.class);
+                intent = new Intent(this, RecommendationsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.menuTo:

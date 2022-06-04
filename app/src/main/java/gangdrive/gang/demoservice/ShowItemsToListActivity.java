@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import gangdrive.gang.demoservice.adapter.ItemsToListAdapter;
 import gangdrive.gang.demoservice.db.ItemsTo;
 import gangdrive.gang.demoservice.viewmodel.ShowItemToListActivityViewModel;
 

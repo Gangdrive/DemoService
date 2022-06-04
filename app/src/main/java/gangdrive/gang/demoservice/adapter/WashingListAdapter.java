@@ -1,4 +1,4 @@
-package gangdrive.gang.demoservice;
+package gangdrive.gang.demoservice.adapter;
 
 
 import android.annotation.SuppressLint;
@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import gangdrive.gang.demoservice.R;
 import gangdrive.gang.demoservice.db.Washing;
 
 public class WashingListAdapter extends RecyclerView.Adapter<WashingListAdapter.MyViewHolder> {
