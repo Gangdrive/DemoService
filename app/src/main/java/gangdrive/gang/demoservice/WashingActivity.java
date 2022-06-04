@@ -19,61 +19,63 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import java.util.List;
 
-import gangdrive.gang.demoservice.db.Tototo;
-import gangdrive.gang.demoservice.viewmodel.ToActivityViewModel;
 
-public class ToActivity extends AppCompatActivity implements ToListAdapter.HandleToClick {
+import gangdrive.gang.demoservice.db.Washing;
+import gangdrive.gang.demoservice.viewmodel.WashingActivityViewModel;
 
-    private ToActivityViewModel viewModel;
+
+public class WashingActivity extends AppCompatActivity implements WashingListAdapter.HandleWashingClick {
+
+    private WashingActivityViewModel viewModel;
     private TextView noResultTextView;
     private RecyclerView recyclerView;
-    private ToListAdapter toListAdapter;
-    private Tototo toForEdit;
+    private WashingListAdapter washingListAdapter;
+    private Washing washingForEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_to);
+        setContentView(R.layout.activity_washing);
 
-        getSupportActionBar().setTitle("Пройденные ТО");
-        //кнопка назад
+        getSupportActionBar().setTitle("Мойка");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         noResultTextView = findViewById(R.id.noResult);
         recyclerView = findViewById(R.id.recyclerView);
 
-        ImageView addNew = findViewById(R.id.addNewToImageView);
+        ImageView addNew = findViewById(R.id.addNewWashingImageView);
         addNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToDialog(false);
+                showWashingDialog(false);
             }
         });
 
         initViewModel();
         initRecyclerView();
-        viewModel.getAllToList();
+        viewModel.getAllWashingList();
     }
 
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        toListAdapter = new ToListAdapter(this, this);
-        recyclerView.setAdapter(toListAdapter);
+        washingListAdapter = new WashingListAdapter(this, this);
+        recyclerView.setAdapter(washingListAdapter);
     }
 
     private void initViewModel() {
-        viewModel = new ViewModelProvider(this).get(ToActivityViewModel.class);
-        viewModel.getToObserverList().observe(this, new Observer<List<Tototo>>() {
+        viewModel = new ViewModelProvider(this).get(WashingActivityViewModel.class);
+        viewModel.getWashingObserverList().observe(this, new Observer<List<Washing>>() {
             @Override
-            public void onChanged(List<Tototo> to) {
-                if (to == null) {
+            public void onChanged(List<Washing> washings) {
+                if (washings == null) {
                     noResultTextView.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
                 } else {
                     //показать RecyclerView
-                    toListAdapter.setTo(to);
+                    washingListAdapter.setWashing(washings);
                     recyclerView.setVisibility(View.VISIBLE);
                     noResultTextView.setVisibility(View.GONE);
                 }
@@ -81,15 +83,16 @@ public class ToActivity extends AppCompatActivity implements ToListAdapter.Handl
         });
     }
 
-    private void showToDialog(boolean isForEdit) {
+    private void showWashingDialog(boolean isForEdit){
         AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
-        View dialogView = getLayoutInflater().inflate(R.layout.add_cardata_layout, null);
-        EditText enterToInput = dialogView.findViewById(R.id.enterCarDataInput);
+        View dialogView = getLayoutInflater().inflate(R.layout.add_washing_layout, null);
+        EditText enterWashingInput = dialogView.findViewById(R.id.enterWashingInput);
         TextView createButton = dialogView.findViewById(R.id.createButton);
         TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
+
         if (isForEdit) {
             createButton.setText("Обновить");
-            enterToInput.setText(toForEdit.toName);
+            enterWashingInput.setText(washingForEdit.washingPrice);
         }
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -102,17 +105,17 @@ public class ToActivity extends AppCompatActivity implements ToListAdapter.Handl
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = enterToInput.getText().toString();
+                String name = enterWashingInput.getText().toString();
                 if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(ToActivity.this, "Выберите название заголовка", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WashingActivity.this, "Добавьте стоимость", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (isForEdit) {
-                    toForEdit.toName = name;
-                    viewModel.updateTo(toForEdit);
+                    washingForEdit.washingPrice = name +"руб";
+                    viewModel.updateWashing(washingForEdit);
                 } else {
                     //здесь нам нужно вызвать view model
-                    viewModel.insertTo(name);
+                    viewModel.insertWashing(name+"руб");
                 }
                 dialogBuilder.dismiss();
             }
@@ -122,28 +125,18 @@ public class ToActivity extends AppCompatActivity implements ToListAdapter.Handl
     }
 
     @Override
-    public void itemClick(Tototo to) {
-        Intent intent = new Intent(ToActivity.this, ShowItemsToListActivity.class);
-        intent.putExtra("to_id", to.tid);
-        intent.putExtra("to_name", to.toName);
-
-        startActivity(intent);
+    public void removeItem(Washing washing) {
+        viewModel.deleteWashing(washing);
     }
 
     @Override
-    public void removeItem(Tototo to) {
-        viewModel.deleteTo(to);
+    public void editItem(Washing washing) {
+        this.washingForEdit = washing;
+        showWashingDialog(true);
     }
-
-    @Override
-    public void editItem(Tototo to) {
-        this.toForEdit = to;
-        showToDialog(true);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.to_menu, menu);
+        getMenuInflater().inflate(R.menu.accessories_menu, menu);
         return true;
     }
 
@@ -152,33 +145,27 @@ public class ToActivity extends AppCompatActivity implements ToListAdapter.Handl
         Intent intent;
         int id = item.getItemId();
         switch (id) {
-            //кнопка назад
             case android.R.id.home:
                 finish();
                 break;
-
             case R.id.goMainActivity:
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
-
             case R.id.menuRecommendations:
                 intent = new Intent(this, MenuRecommendationsActivity.class);
                 startActivity(intent);
                 break;
-
-            case R.id.menuAutoАccessories:
-                intent = new Intent(this, AccessoriesActivity.class);
+            case R.id.menuTo:
+                intent = new Intent(this, ToActivity.class);
                 startActivity(intent);
                 break;
-
-            case R.id.menuWashing:
-                intent = new Intent(this, WashingActivity.class);
+            case R.id.menuAutoАccessories:
+                intent = new Intent(this,AccessoriesActivity.class);
                 startActivity(intent);
                 break;
 
         }
         return true;
     }
-
 }

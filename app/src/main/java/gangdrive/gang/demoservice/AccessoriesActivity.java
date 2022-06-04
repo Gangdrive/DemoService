@@ -22,9 +22,8 @@ import android.widget.Toast;
 import java.util.List;
 
 import gangdrive.gang.demoservice.db.Accessories;
-import gangdrive.gang.demoservice.db.CarData;
 import gangdrive.gang.demoservice.viewmodel.AccessoriesActivityViewModel;
-import gangdrive.gang.demoservice.viewmodel.MainActivityViewModel;
+
 
 
 public class AccessoriesActivity extends AppCompatActivity implements AccessoriesListAdapter.HandleAccessoriesClick {
@@ -92,7 +91,7 @@ public class AccessoriesActivity extends AppCompatActivity implements Accessorie
         TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
 
         if (isForEdit) {
-            createButton.setText("Update");
+            createButton.setText("Обновить");
             enterAccessoriesInput.setText(accessoriesForEdit.accessoriesName);
         }
 
@@ -124,14 +123,6 @@ public class AccessoriesActivity extends AppCompatActivity implements Accessorie
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
     }
-   /* @Override
-    public void itemClick(CarData carData) {
-        Intent intent = new Intent(AccessoriesActivity.this, ShowItemsListActivity.class);
-        intent.putExtra("carData_id", carData.uid);
-        intent.putExtra("carData_name", carData.carDataName);
-
-        startActivity(intent);
-    }*/
 
     @Override
     public void removeItem(Accessories accessories) {
@@ -175,10 +166,10 @@ public class AccessoriesActivity extends AppCompatActivity implements Accessorie
                 intent = new Intent(this, ToActivity.class);
                 startActivity(intent);
                 break;
-          /*  case R.id.menuWashing:
+            case R.id.menuWashing:
                 intent = new Intent(this,WashingActivity.class);
                 startActivity(intent);
-                break;*/
+                break;
 
         }
         return true;

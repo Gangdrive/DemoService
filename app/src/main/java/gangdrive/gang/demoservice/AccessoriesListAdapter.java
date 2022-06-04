@@ -43,13 +43,6 @@ public class AccessoriesListAdapter extends RecyclerView.Adapter<AccessoriesList
 
         holder.tvAccessoriesName.setText(this.accessoriesList.get(position).accessoriesName);
 
-      /*  holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickListener.itemClick(accessoriesList.get(position));
-            }
-        });
-*/
         holder.editAccessories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

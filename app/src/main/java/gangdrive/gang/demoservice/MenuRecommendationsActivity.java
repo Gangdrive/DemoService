@@ -50,10 +50,10 @@ public class MenuRecommendationsActivity extends AppCompatActivity {
                 intent = new Intent(this, AccessoriesActivity.class);
                 startActivity(intent);
                 break;
-/*case R.id.menuWashing:
-                intent = new Intent(this,WashingActivity.class);
+            case R.id.menuWashing:
+                intent = new Intent(this, WashingActivity.class);
                 startActivity(intent);
-                break;*/
+                break;
 
         }
         return true;

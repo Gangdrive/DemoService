@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements CarDataListAdapte
         TextView createButton = dialogView.findViewById(R.id.createButton);
         TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
         if (isForEdit) {
-            createButton.setText("Update");
+            createButton.setText("Обновить");
             enterCarDataInput.setText(carDataForEdit.carDataName);
         }
 
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements CarDataListAdapte
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
@@ -150,23 +150,23 @@ public class MainActivity extends AppCompatActivity implements CarDataListAdapte
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.menuRecommendations:
                 intent = new Intent(this, MenuRecommendationsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.menuTo:
-                intent = new Intent(this,ToActivity.class);
+                intent = new Intent(this, ToActivity.class);
                 startActivity(intent);
                 break;
             case R.id.menuAutoАccessories:
-                intent = new Intent(this,AccessoriesActivity.class);
+                intent = new Intent(this, AccessoriesActivity.class);
                 startActivity(intent);
                 break;
-                /*case R.id.menuWashing:
-                intent = new Intent(this,WashingActivity.class);
+            case R.id.menuWashing:
+                intent = new Intent(this, WashingActivity.class);
                 startActivity(intent);
-                break;*/
+                break;
 
         }
         return true;

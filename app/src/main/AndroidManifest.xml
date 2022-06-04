@@ -12,6 +12,9 @@
         android:theme="@style/Theme.DemoService"
         tools:targetApi="31">
         <activity
+            android:name=".WashingActivity"
+            android:exported="true" />
+        <activity
             android:name=".AccessoriesActivity"
             android:exported="true" />
         <activity
