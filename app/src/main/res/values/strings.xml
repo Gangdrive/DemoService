@@ -6,6 +6,10 @@
          Auto\n
     </string>
 
+    <string name="loadName1">
+         Service Auto
+    </string>
+
     <string name="helper">
          Если не знаете что создать - нажмите на 3 вертикальные точки и прочитайте справку
     </string>
